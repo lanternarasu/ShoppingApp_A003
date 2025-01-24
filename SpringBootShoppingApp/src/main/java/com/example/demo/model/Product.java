@@ -16,5 +16,5 @@ public class Product {
 	private String productName;
 	private int productPrice;
 	private String productCategory;
-	private String productValidity;
+	private Date productValidity;
 }
