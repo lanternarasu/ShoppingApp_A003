@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import com.example.demo.exceptions.ProductNotFoundException;
@@ -21,6 +23,7 @@ public interface ProductService {
 	public List<Product> getProductsByCategory(String category);
 	
 	public List<Product> getProductsByCategoryAndPrice(String category,int price);
-
+	
+    public List<Product> findByProductValidityBefore(LocalDate validDate);
 
 }

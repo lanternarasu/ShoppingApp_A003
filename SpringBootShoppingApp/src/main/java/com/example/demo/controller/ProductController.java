@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +11,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +28,13 @@ import com.example.demo.model.Product;
 import com.example.demo.model.User;
 import com.example.demo.service.ProductService;
 
-
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	Logger Logger = LoggerFactory.getLogger(this.getClass());
 
 	@PostMapping("/save")
@@ -66,21 +70,29 @@ public class ProductController {
 	@GetMapping("/getAllProductsBetween/{price1}/{price2}")
 	public List<Product> getAllProductsBetween(@PathVariable("price1") int initialPrice,
 			@PathVariable("price2") int finalPrice) {
-		Logger.info("In controller /getAllProductsBetween "+initialPrice+" "+finalPrice);
+		Logger.info("In controller /getAllProductsBetween " + initialPrice + " " + finalPrice);
 		return productService.getAllProductsBetweenPrice(initialPrice, finalPrice);
 	}
-	
+
 	@GetMapping("/getProductsByCategory/{category}")
-	public List<Product> getProductByCategory(@PathVariable("category") String category){
+	public List<Product> getProductByCategory(@PathVariable("category") String category) {
 		Logger.info("In controller /getProductByCategory" + category);
 		return productService.getProductsByCategory(category);
 	}
-	
+
 	@GetMapping("/getAllProductsByCategoryAndPrice/{category}/{price}")
 	public List<Product> getProductByCategoryAndPrice(@PathVariable("category") String category,
 			@PathVariable("price") int price) {
-		Logger.info("In controller /getAllProductsByCategoryAndPrice "+category+" "+price);
+		Logger.info("In controller /getAllProductsByCategoryAndPrice " + category + " " + price);
 		return productService.getProductsByCategoryAndPrice(category, price);
+	}
+
+	@GetMapping("/getValidProducts/{date}")
+	public List<Product> getValidProducts(@PathVariable("date") String validDate) {
+		Logger.info("In controller /getValidProducts " + validDate);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(validDate, formatter);
+		return productService.findByProductValidityBefore(date);
 	}
 
 	@PostMapping("/test")

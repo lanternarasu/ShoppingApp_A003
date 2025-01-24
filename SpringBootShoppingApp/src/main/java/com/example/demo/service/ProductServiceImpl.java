@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +68,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> getProductsByCategoryAndPrice(String category, int price) {
 		return productRepository.findByProductCategoryAndProductPriceLessThan(category, price);
+	}
+
+	@Override
+	public List<Product> findByProductValidityBefore(LocalDate validDate) {
+		return productRepository.findByProductValidityBefore(validDate);
 	}
 
 }
