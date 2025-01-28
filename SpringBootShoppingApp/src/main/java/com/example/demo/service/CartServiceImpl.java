@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Cart;
@@ -19,15 +21,14 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart getCart() {
-		// TODO Auto-generated method stub
-		return null;
+	public  Optional<Cart> getCart(int cartId) {
+		return cartRepository.findById(cartId);
 	}
 
 	@Override
 	public String removeCart(int cartId) {
-		// TODO Auto-generated method stub
-		return null;
+		cartRepository.deleteById(cartId);
+		return "cart deleted successfully";
 	}
 
 
