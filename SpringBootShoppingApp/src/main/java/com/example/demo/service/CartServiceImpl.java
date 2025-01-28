@@ -19,15 +19,17 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart updateCart(Cart cart) {
+	public Cart getCart() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String deleteProductInCart(int cartId, int productId) {
+	public String removeCart(int cartId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
