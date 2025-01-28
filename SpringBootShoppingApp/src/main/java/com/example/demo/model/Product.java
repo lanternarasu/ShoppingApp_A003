@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
-import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -25,4 +28,9 @@ public class Product {
 	@NotEmpty
 	private String productCategory;
 	private LocalDate productValidity;
+	
+	@ManyToOne
+	@JoinColumn(name="cart_id",referencedColumnName = "cartId")
+	@JsonBackReference
+	private Cart cart;
 }
